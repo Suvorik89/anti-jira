@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymmeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:each="ticket : ${tickets}">
+        <div th:text="${ticket.id}"></div>
+        <div th:text="${ticket.summary}"></div>
+        <div th:text="${ticket.reporterId}"></div>
+    </div>
+</body>
+</html>

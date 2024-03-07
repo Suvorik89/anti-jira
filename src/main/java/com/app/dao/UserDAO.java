@@ -17,7 +17,7 @@ public class UserDAO {
 
     public void storeNewUser(User user) {
         jdbcTemplate.update("INSERT INTO users (first_name,last_name, email, password) " +
-                "VALUES (?, ?, ? ,?)", user.getFirstName(), user.getLastName(),
+                        "VALUES (?, ?, ? ,?)", user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getPassword());
     }
 
@@ -28,7 +28,7 @@ public class UserDAO {
 
     public List<User> getUserByEmail(String email) {
         RowMapper<User> rowMapper = (rs, rowNumber) -> mapUser(rs);
-        return jdbcTemplate.query("SELECT * FROM users WHEN email = ?", rowMapper, email);
+        return jdbcTemplate.query("SELECT * FROM users WHERE email = ?", rowMapper, email);
     }
 
     private User mapUser(ResultSet rs) throws SQLException {
@@ -38,7 +38,7 @@ public class UserDAO {
         user.setFirstName((rs.getString("first_name")));
         user.setLastName(rs.getString("last_name"));
         user.setEmail(rs.getString("email"));
-        user. setPassword(rs.getString("password"));
+        user.setPassword(rs.getString("password"));
 
         return user;
     }

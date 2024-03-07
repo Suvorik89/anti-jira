@@ -1,5 +1,6 @@
 package com.app.security;
 
+import com.app.model.User;
 import com.app.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,11 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //http.csrf().disable().auth
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/registration").permitAll()
+                .anyRequest().authenticated())
+                .formLogin(form -> form.loginPage("/login").permitAll());
+
+        return http.build();
     }
 }

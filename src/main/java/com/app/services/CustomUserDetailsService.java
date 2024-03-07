@@ -24,5 +24,4 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return new CustomUserDetails(users.get(0));
     }
-
 }

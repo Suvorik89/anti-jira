@@ -2,12 +2,11 @@
 <html xmlns:th="http://www.thymmeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>All Users</title>
 </head>
 <body>
     <div th:each="user : ${users}">
         <div th:text="${'ID: ' + user.id + ' First Name: ' + user.firstName}"></div>
-
     </div>
 </body>
 </html>
