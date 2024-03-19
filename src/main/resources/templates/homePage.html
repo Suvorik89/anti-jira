@@ -3,11 +3,34 @@
     <head>
         <meta charset="UTF-8">
         <title>Anti Jira</title>
+        <link th:href="@{/css/reset.css}" rel="stylesheet" type="text/css">
+        <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div th:each="project : ${projects}">
-            <div th:text="${project.name}"></div>
+        <div class="content">
+            <div class="menu">
+                <div th:each="project : ${projects}" class="project">
+                    <a th:href="'/project/' + ${project.id}" th:text="${project.name}" class="project-link"></a>
+                </div>
+            </div>
+            <div class="right-content-block">
+                <div class="right-header">
+                    <div class="button-block"><a href="/new-project" class="link-button">Create Project</a></div>
+                    <div class="button-block"><a href="/new-ticket" class="link-button">Create Ticket</a></div>
+                </div>
+                <div class="right-content">
+                    <div class="tickets-header">
+                        <div class="tickets-id header">ID</div>
+                        <div class="tickets-summary header">Summary</div>
+                        <div class="tickets-reporter header">Reporter</div>
+                    </div>
+                    <div th:each="ticket : ${tickets}" class="ticket">
+                        <div th:text="${ticket.id}" class="tickets-id"></div>
+                        <div th:text="${ticket.summary}" class="tickets-summary"></div>
+                        <div th:text="${ticket.user.firstName + ' ' + ticket.user.lastName}" class="tickets-reporter"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div><a href="/new-project">Create Project</a></div>
     </body>
 </html>

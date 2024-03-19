@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymmeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Project</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div th:each="ticket : ${tickets}">
         <div th:text="${ticket.id}"></div>
         <div th:text="${ticket.summary}"></div>
-        <div th:text="${ticket.reporterId}"></div>
+        <div th:text="${ticket.user.firstName + ' ' + ticket.user.lastName}"></div>
     </div>
 </body>
 </html>
