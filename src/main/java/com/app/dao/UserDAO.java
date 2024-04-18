@@ -26,6 +26,11 @@ public class UserDAO {
         return jdbcTemplate.query("SELECT * FROM users", rowMapper);
     }
 
+    public List<User> getAllUsersStartingWith(String startsWith) {
+        RowMapper<User> rowMapper = (rs, rowNumber) -> mapUser(rs);
+        return jdbcTemplate.query("SELECT * FROM users WHERE first_name LIKE CONCAT(?,'%')", rowMapper, startsWith);
+    }
+
     public List<User> getUserByEmail(String email) {
         RowMapper<User> rowMapper = (rs, rowNumber) -> mapUser(rs);
         return jdbcTemplate.query("SELECT * FROM users WHERE email = ?", rowMapper, email);

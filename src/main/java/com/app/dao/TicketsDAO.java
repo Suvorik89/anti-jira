@@ -19,7 +19,7 @@ public class TicketsDAO {
     public void storeNewTicket(Ticket ticket) {
         jdbcTemplate.update("INSERT INTO tickets (summary, description, reporter_id, project_id) " +
                 "VALUES (?, ?, ?, ?)",
-                ticket.getSummary(), ticket.getDescription(), ticket.getReporterId(), ticket.getProjectId());
+                ticket.getSummary(), ticket.getDescription(), ticket.getUser().getId(), ticket.getProjectId());
     }
     public List<Ticket> getTicketsByProject(long projectId) {
         RowMapper<Ticket> rowMapper = (rs, rowNumber) -> mapTicket(rs);
@@ -48,11 +48,10 @@ public class TicketsDAO {
         ticket.setId(rs.getLong("tid"));
         ticket.setSummary(rs.getString("summary"));
         ticket.setDescription(rs.getString("description"));
+
         ticket.setUser(user);
 //        ticket.setReporterId(rs.getLong("reporter_id"));
         ticket.setProjectId(rs.getLong("project_id"));
         return ticket;
     }
-
-
 }

@@ -6,6 +6,7 @@ public class Ticket {
     private String description;
     //private long reporterId;
     private User user;
+
     private long projectId;
 
     public long getId() {

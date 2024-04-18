@@ -30,4 +30,9 @@ public class TicketsController {
         ticketServices.storeNewTicket(ticket);
         return "redirect:/new-ticket";
     }
+
+    @GetMapping("/ticket")
+    public String showTicket() {
+        return "ticket";
+    }
 }
