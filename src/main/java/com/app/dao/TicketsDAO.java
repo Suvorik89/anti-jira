@@ -21,6 +21,12 @@ public class TicketsDAO {
                 "VALUES (?, ?, ?, ?)",
                 ticket.getSummary(), ticket.getDescription(), ticket.getUser().getId(), ticket.getProjectId());
     }
+
+    public void updateTicket(Ticket ticket) {
+        jdbcTemplate.update("UPDATE tickets SET summary = ?, description = ? " +
+                "WHERE id = ? ", ticket.getSummary(), ticket.getDescription(), ticket.getId());
+    }
+
     public List<Ticket> getTicketsByProject(long projectId) {
         RowMapper<Ticket> rowMapper = (rs, rowNumber) -> mapTicket(rs);
         return jdbcTemplate.query("SELECT u.id AS uid, u.first_name, u.last_name, t.id AS tid, t.summary, t.description, t.project_id " +
@@ -36,6 +42,15 @@ public class TicketsDAO {
                 "INNER JOIN users u ON t.reporter_id = u.id " +
                 "ORDER BY t.id DESC " +
                 "LIMIT ?", rowMapper, count);
+    }
+
+    public Ticket getTicketById(long id) {
+        RowMapper<Ticket> rowMapper = (rs, rowNumber) -> mapTicket(rs);
+        return jdbcTemplate.query("SELECT u.id AS uid, u.first_name, u.last_name, t.id AS tid, t.summary, t.description, t.project_id " +
+                "FROM tickets t " +
+                "INNER JOIN users u ON t.reporter_id = u.id " +
+                "WHERE t.id = ? " +
+                "ORDER BY t.id DESC ", rowMapper, id).get(0);
     }
 
     private Ticket mapTicket(ResultSet rs) throws SQLException {

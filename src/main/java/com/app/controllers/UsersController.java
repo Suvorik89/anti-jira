@@ -17,4 +17,9 @@ public class UsersController {
         model.addAttribute("users", userServices.getAllUsers());
         return "allUsers";
     }
+
+    @GetMapping("/avatar-upload")
+    public String uploadAvatar() {
+        return "avatarUpload";
+    }
 }

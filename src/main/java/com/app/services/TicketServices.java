@@ -35,4 +35,12 @@ public class TicketServices {
     public List<Ticket> getLastTickets(int count) {
         return ticketsDAO.getLastTickets(count);
     }
+
+    public Ticket getTicketById(long id) {
+        return ticketsDAO.getTicketById(id);
+    }
+
+    public void updateTicket(Ticket ticket) {
+        ticketsDAO.updateTicket(ticket);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -25,14 +26,28 @@ public class TicketsController {
         return "newTicket";
     }
 
+    @GetMapping("/ticket/edit/{id}")
+    public String showEditTicketForm(@PathVariable("id") long id, Model model){
+        model.addAttribute("ticket", ticketServices.getTicketById(id));
+        return "editTicket";
+    }
+
+    @PostMapping("/ticket/edit/{id}")
+    public String editTicket(@ModelAttribute Ticket ticket, @PathVariable("id") long id) {
+        ticket.setId(id);
+        ticketServices.updateTicket(ticket);
+        return "redirect:/";
+    }
+
     @PostMapping("/new-ticket")
     public String storeNewTicket(@ModelAttribute Ticket ticket) {
         ticketServices.storeNewTicket(ticket);
         return "redirect:/new-ticket";
     }
 
-    @GetMapping("/ticket")
-    public String showTicket() {
+    @GetMapping("/ticket/{id}")
+    public String showTicket(@PathVariable("id") long id, Model model) {
+        model.addAttribute("ticket", ticketServices.getTicketById(id));
         return "ticket";
     }
 }
