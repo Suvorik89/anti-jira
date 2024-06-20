@@ -48,11 +48,11 @@ public class User {
         this.password = password;
     }
 
-    public String getAvatar() {
+    public String getAvatarPath() {
         return avatarPath;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatarPath = avatar;
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
     }
 }

@@ -2,7 +2,10 @@ package com.app.services;
 
 import com.app.dao.FileDAO;
 import com.app.dao.UserDAO;
+import com.app.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +33,11 @@ public class FileServices {
 
     public void storeUserAvatar(MultipartFile file) throws IOException {
         copyFileToDirectory(file);
-        //TODO
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
+
+        userDAO.storeUserAvatar(file.getOriginalFilename(), customUser.getUser().getId());
     }
 
     public List<String> getAllFiles() {

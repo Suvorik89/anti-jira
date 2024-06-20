@@ -20,6 +20,7 @@ public class UserServices {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String  encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+
         userDAO.storeNewUser(user);
     }
 

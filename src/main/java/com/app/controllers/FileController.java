@@ -27,6 +27,12 @@ public class FileController {
         return "redirect:/";
     }
 
+    @PostMapping("/avatar-upload")
+    public String storeUserAvatar(@RequestParam("avatar") MultipartFile avatar) throws IOException {
+        fileServices.storeUserAvatar(avatar);
+        return "redirect:/";
+    }
+
     @GetMapping("/all-files")
     public String getAllFilesPage(Model model) {
         model.addAttribute("files", fileServices.getAllFiles());
